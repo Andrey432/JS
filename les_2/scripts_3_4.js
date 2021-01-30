@@ -1,11 +1,13 @@
+'use strict'
+
 /**
  * 3
  */
 function compareRandomNumbers(a, b) {
-    let res = null, signs = ((a >= 0) === (b >= 0));
-    if (signs && a >= 0) {
+    let res = null;
+    if (a >= 0 && b >= 0) {
         res = `a - b = ${a - b}`;
-    } else if (signs) {
+    } else if (a < 0 && b < 0) {
         res = `a * b = ${a * b}`;
     } else {
         res = `a + b = ${a + b}`;
@@ -17,40 +19,40 @@ function compareRandomNumbers(a, b) {
 /**
  * 4
  */
-function showA(a) {
+function showList(a) {
     switch (a) {
+        case 0:
+            console.log(a++);
         case 1:
-            return 1;
+            console.log(a++);
         case 2:
-            return 2;
+            console.log(a++);
         case 3:
-            return 3;
+            console.log(a++);
         case 4:
-            return 4;
+            console.log(a++);
         case 5:
-            return 5;
+            console.log(a++);
         case 6:
-            return 6;
+            console.log(a++);
         case 7:
-            return 7;
+            console.log(a++);
         case 8:
-            return 8;
+            console.log(a++);
         case 9:
-            return 9;
+            console.log(a++);
         case 10:
-            return 10;
+            console.log(a++);
         case 11:
-            return 11;
+            console.log(a++);
         case 12:
-            return 12;
+            console.log(a++);
         case 13:
-            return 13;
+            console.log(a++);
         case 14:
-            return 14;
+            console.log(a++);
         case 15:
-            return 15;
-        default:
-            return 0;
+            console.log(a++);
     }
 }
 
@@ -62,4 +64,7 @@ function showA(a) {
 const rnd = require('./random');
 
 console.log(`\n№3\n${compareRandomNumbers(rnd.randint(), rnd.randint())}`);
-console.log(`\n№4\na=${showA(rnd.getRandom(0, 16))}`);
+
+let a = rnd.getRandom(0, 16);
+console.log(`\n№4\na=${a}`);
+showList(a);
