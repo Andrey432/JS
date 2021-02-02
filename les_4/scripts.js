@@ -53,9 +53,9 @@ const cart = {
         },
     ],
 
-    countProdiuctsPrice() {
+    countProductsPrice() {
         return this.products.reduce((current, item) => current + item.quantity * item.price, 0);
     }
 }
 
-console.log(`Total cart price: ${cart.countProdiuctsPrice()}`);
+console.log(`Total cart price: ${cart.countProductsPrice()}`);
