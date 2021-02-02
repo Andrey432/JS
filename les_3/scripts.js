@@ -34,7 +34,7 @@ let cart = [
 
 
 function countBasketPrice(cart) {
-    return cart.reduce((current, item) => current + item[2], 0);
+    return cart.reduce((current, item) => current + item[2] * item[1], 0);
 }
 
 
