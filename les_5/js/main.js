@@ -44,10 +44,33 @@ const chessSettings = {
     }
 }
 
+const cartProducts = [
+    {
+        name: 'item1',
+        quantity: 4,
+        price: 4999
+    },
+    {
+        name: 'item2',
+        quantity: 10,
+        price: 500
+    },
+    {
+        name: 'item3',
+        quantity: 6,
+        price: 1200
+    },
+    {
+        name: 'item4',
+        quantity: 1,
+        price: 78800
+    }
+]
+
 
 const modules = {
     'Chess': new Chess(chessSettings),
-    'Cart': new Cart(),
+    'Cart': new Cart(cartProducts),
 }
 
 
