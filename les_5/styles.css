@@ -3,6 +3,12 @@
     padding: 0;
 }
 
+.container {
+    margin: 0 auto;
+    padding: 20px 10px;
+    max-width: 1366px;
+}
+
 .main {
     display: flex;
     flex-direction: column;

@@ -5,6 +5,8 @@ class Chess {
     constructor(settings) {
         this.settings = settings;
         this.table = [];
+        this.body = null;
+        this.genTable();
     }
 
     genTable() {
@@ -27,8 +29,14 @@ class Chess {
         let header = document.createElement('h1');
         header.textContent = 'CHESS';
 
-        document.querySelector('.main').insertAdjacentElement('afterbegin', header);
-        header.insertAdjacentElement('afterend', table);
+        let body = document.createElement('div');
+        body.appendChild(header);
+        body.appendChild(table);
+        this.body = body;
+    }
+
+    getBody() {
+        return this.body;
     }
 
     isRowHeader(row, column) {

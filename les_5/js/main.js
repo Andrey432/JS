@@ -9,5 +9,41 @@ const chessSettings = {
     }
 }
 
-const game = new Chess(chessSettings);
-game.run();
+
+class Manager {
+    constructor () {
+        this.chess = new Chess(chessSettings);
+        this.cart = new Cart();
+        this.currentElement = null;
+        this.root = null;
+    }
+
+    initialize() {
+        let chess_btn = document.querySelector('#chess');
+        let cart_btn = document.querySelector('#cart');
+        this.root = document.querySelector('.main');
+        
+        // Без стрелочной фнкции контекст this переходит в кнопку
+        // Да и удаление listener'ов не потребуется 
+        chess_btn.addEventListener('click', () => this.showChess());
+        cart_btn.addEventListener('click', () => this.showCart());
+    }
+
+    showChess() {
+        if (this.currentElement)
+            this.root.removeChild(this.currentElement);
+        this.currentElement = this.chess.getBody();
+        this.root.appendChild(this.currentElement);
+    }
+
+    showCart() {
+        if (this.currentElement)
+            this.root.removeChild(this.currentElement);
+        this.currentElement = this.cart.getBody();
+        this.root.appendChild(this.currentElement);
+    }
+}
+
+
+const manager = new Manager();
+manager.initialize();
