@@ -1,5 +1,40 @@
 'use strict';
 
+
+class Manager {
+    constructor (modules) {
+        this.modules = modules;
+        this.currentElement = null;
+        this.root = null;
+    }
+
+    initialize() {
+        let container = document.querySelector('.container');
+
+        for (const md in this.modules) {
+            let button = document.createElement('button');
+            button.innerText = md;
+            button.addEventListener('click', () => this.showModule(md));
+            container.appendChild(button);
+        }
+
+        this.root = document.createElement('div');
+        this.root.classList.add('main');
+        container.appendChild(this.root);
+    }
+
+    showModule(module) {
+        let cur = this.currentElement;
+        if (cur !== module) {
+            if (cur !== null)
+                this.root.removeChild(this.modules[cur].getBody());
+            this.currentElement = module;
+            this.root.appendChild(this.modules[module].getBody());
+        }
+    }
+}
+
+
 const chessSettings = {
     tableSize: 8,
     figures: ['R', 'H', 'B', 'K', 'Q', 'B', 'H', 'R'],
@@ -10,40 +45,11 @@ const chessSettings = {
 }
 
 
-class Manager {
-    constructor () {
-        this.chess = new Chess(chessSettings);
-        this.cart = new Cart();
-        this.currentElement = null;
-        this.root = null;
-    }
-
-    initialize() {
-        let chess_btn = document.querySelector('#chess');
-        let cart_btn = document.querySelector('#cart');
-        this.root = document.querySelector('.main');
-        
-        // Без стрелочной фнкции контекст this переходит в кнопку
-        // Да и удаление listener'ов не потребуется 
-        chess_btn.addEventListener('click', () => this.showChess());
-        cart_btn.addEventListener('click', () => this.showCart());
-    }
-
-    showChess() {
-        if (this.currentElement)
-            this.root.removeChild(this.currentElement);
-        this.currentElement = this.chess.getBody();
-        this.root.appendChild(this.currentElement);
-    }
-
-    showCart() {
-        if (this.currentElement)
-            this.root.removeChild(this.currentElement);
-        this.currentElement = this.cart.getBody();
-        this.root.appendChild(this.currentElement);
-    }
+const modules = {
+    'Chess': new Chess(chessSettings),
+    'Cart': new Cart(),
 }
 
 
-const manager = new Manager();
+const manager = new Manager(modules);
 manager.initialize();
