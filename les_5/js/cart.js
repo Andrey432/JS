@@ -9,6 +9,7 @@ class Cart {
         this.genCatalog();
     }
 
+    // Генерация вёрстки
     initialize() {
         this.body = document.createElement('div');
         this.emptyMsg = document.createElement('h1');
@@ -26,10 +27,12 @@ class Cart {
         this.body.appendChild(this.productsInfoMsg);
     }
 
+    // Вывод информации
     countProductsPrice() {
         return this.products.reduce((current, item) => current + item.quantity * item.price, 0);
     }
 
+    // Надпись "n товаров на стоимость m"
     genProductsInfo() {
         let end = '';
         if (5 <= this.products.length && this.products.length <= 20)
@@ -50,12 +53,14 @@ class Cart {
         this.productsInfoMsg.innerText = `В корзине ${this.products.length} товар${end} на сумму ${this.countProductsPrice()} рублей`;
     }
 
+    // Переключает "корзина пуста" и "n товаров на стоимость m"
     toggleInfo() {
         this.productsInfoMsg.classList.toggle('unvisible');
         this.emptyMsg.classList.toggle('unvisible');
         this.emptyFlag = !this.emptyFlag;
     }
 
+    // Генерация элементов корзины
     genCatalog() {
         if (this.products.length === 0 && !this.emptyFlag) {
             this.toggleInfo();

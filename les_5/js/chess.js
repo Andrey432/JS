@@ -9,6 +9,7 @@ class Chess {
         this.genTable();
     }
 
+    // Генерация всей вёрстки шахмат
     genTable() {
         let table = document.createElement('table');
         let tsize = this.settings.tableSize;
@@ -39,16 +40,19 @@ class Chess {
         return this.body;
     }
 
+    // Столбец с цифрами
     isRowHeader(row, column) {
         let tsize = this.settings.tableSize;
         return ((column === 0 || column === tsize + 1) && row > 0);
     }
 
+    // Столбец с буквами
     isColumnHeader(row, column) {
         let tsize = this.settings.tableSize;
         return ((row === 0 || row === tsize + 1) && column > 0);
     }
 
+    // Создание ячейки таблицы
     createCell(row, column) {
         let td = document.createElement('td');
         let tsize = this.settings.tableSize;
@@ -66,6 +70,7 @@ class Chess {
         return td;
     }
 
+    // Содержимое ячейки
     genContent(row, column) {
         let tsize = this.settings.tableSize;
         let figures = this.settings.figures;
@@ -87,9 +92,5 @@ class Chess {
             default:
                 return '';
         }
-    }
-
-    run() {
-        this.genTable();
     }
 }
