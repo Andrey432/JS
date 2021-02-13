@@ -1,8 +1,13 @@
 const DEFAULTS = {
     tableWidth: 35,
     tableHeight: 25,
-    startingGameSpeed: 2,
+    startingGameSpeed: 16,
     foodLimit: 5,
+
+    moveUp: ['KeyW', 'ArrowUp'],
+    moveLeft: ['KeyA', 'ArrowLeft'],
+    moveRight: ['KeyD', 'ArrowRight'],
+    moveDown: ['KeyS', 'ArrowDown'],
 
     tableContainerCls: 'game',
     tableCls: 'game_field',
@@ -38,6 +43,22 @@ const config = {
 
     getSnakeBodyClass() {
         return this.settings.snakeCellCls;
+    },
+
+    getSnakeControlButtonsUp() {
+        return this.settings.moveUp;
+    },
+
+    getSnakeControlButtonsRight() {
+        return this.settings.moveRight;
+    },
+
+    getSnakeControlButtonsLeft() {
+        return this.settings.moveLeft;
+    },
+
+    getSnakeControlButtonsDown() {
+        return this.settings.moveDown;
     },
 
     getTableWidth() {

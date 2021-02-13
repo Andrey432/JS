@@ -9,6 +9,7 @@ const game = {
         this.initMap();
         this.initSnake();
         this.initFoodSpawner();
+        this.initEventHandlers();
         this.loop = setInterval(() => this.update(), 1000 / this.config.getStartingSpeed());
     },
 
@@ -24,15 +25,31 @@ const game = {
         let x = Math.floor(this.config.getTableWidth() / 2);
         let y = Math.floor(this.config.getTableHeight() / 2);
         this.snake.init(x, y);
-        this.map.setCellClass(x, y, this.config.getSnakeHeadClass());
     },
 
     initFoodSpawner() {
         this.foodSpawner.init(this.config.getFoodLimit());
         while (this.foodSpawner.isNotFilled()) {
-            let pos = this.getRandomEmptyCell();
-            this.foodSpawner.spawnFood();
-            this.map.setCellClass(pos.x, pos.y, this.config.getFoodCellClass());
+            this.foodSpawner.spawnFood(this.getRandomEmptyCell());
+        }
+    },
+
+    initEventHandlers() {
+        document.addEventListener('keydown', (event) => this.handleKeydownEvent(event));
+    },
+
+    handleKeydownEvent(event) {
+        if (this.config.getSnakeControlButtonsUp().indexOf(event.code) != -1) {
+            this.snake.setDirection(0, -1);
+        }
+        else if (this.config.getSnakeControlButtonsDown().indexOf(event.code) != -1) {
+            this.snake.setDirection(0, 1);
+        }
+        else if (this.config.getSnakeControlButtonsLeft().indexOf(event.code) != -1) {
+            this.snake.setDirection(-1, 0);
+        }
+        else if (this.config.getSnakeControlButtonsRight().indexOf(event.code) != -1) {
+            this.snake.setDirection(1, 0);
         }
     },
 
@@ -42,34 +59,65 @@ const game = {
     },
 
     getRandomEmptyCell() {
-        let x, y;
+        let pos = {x: null, y: null};
         do {
-            x = Math.floor(Math.random() * this.config.getTableWidth());
-            y = Math.floor(Math.random() * this.config.getTableHeight());
-        } while (!this.map.isEmptyCell(x, y));
-        return {x: x, y: y};
+            pos.x = Math.floor(Math.random() * this.config.getTableWidth());
+            pos.y = Math.floor(Math.random() * this.config.getTableHeight());
+        } while (!this.map.isEmptyCell(pos));
+        return pos;
     },
 
-    moveSnake(position, deleteEnd) {
-        let snakeOldPos = this.snake.getHead(), end = this.snake.getLast();
-        this.map.setCellClass(snakeOldPos.x, snakeOldPos.y, this.config.getSnakeBodyClass());
-        this.map.setCellClass(position.x, position.y, this.config.getSnakeHeadClass());
-        if (deleteEnd)
-            this.map.resetCell(end.x, end.y);
-        this.snake.moveTo(position);
+    checkSnakePosition(position) {
+        let tw = this.config.getTableWidth(), th = this.config.getTableHeight()
+        
+        if (position.x < 0)
+            position.x = tw + position.x;
+        if (position.y < 0)
+            position.y = th + position.y;
+
+        position.x %= tw;
+        position.y %= th;
     },
 
     updateSnake() {
         let nextSnakePos = this.snake.getNextStep();
-        let deleteEnd = !this.foodSpawner.isFoodCell(nextSnakePos);
-        this.moveSnake(nextSnakePos, deleteEnd);
+        this.checkSnakePosition(nextSnakePos);
+
+        if (this.snake.isSnakeBody(nextSnakePos)) {
+            for (const i of this.snake.cut(nextSnakePos)) {
+                this.foodSpawner.spawnFood(i);
+            }
+        }
+
+        let deleteEnd = true;
+
+        if (this.foodSpawner.isFoodCell(nextSnakePos)) {
+            this.foodSpawner.removeFood(nextSnakePos);
+            if (this.foodSpawner.isNotFilled())
+                this.foodSpawner.spawnFood(this.getRandomEmptyCell());
+            deleteEnd = false;
+        } else {
+            this.map.resetCell(this.snake.getLast());
+        }
+
+        this.snake.moveTo(nextSnakePos, deleteEnd);
     },
 
     update() {
         this.updateSnake();
+        this.render();
     },
 
     render() {
-        
+        let snakeBody = this.snake.getBody()
+        for (const i in snakeBody) {
+            if (i == snakeBody.length - 1)
+                this.map.setCellClass(snakeBody[i], this.config.getSnakeHeadClass());
+            else
+                this.map.setCellClass(snakeBody[i], this.config.getSnakeBodyClass());
+        }
+        for (const i of this.foodSpawner.getFoodList()) {
+            this.map.setCellClass(i, this.config.getFoodCellClass());
+        }
     }
 }

@@ -11,9 +11,9 @@ const map = {
         this.createTable(container, tableClass);
     },
 
-    reset(cellCls) {
+    reset() {
         for (const i of this.gameField) {
-            i.className = cellCls;
+            i.className = this.defaultCellClass;
         }
     },
 
@@ -36,20 +36,24 @@ const map = {
         }
     },
 
-    getCell(x, y) {
-        return this.gameField[y * this.width + x];
+    getCell(pos) {
+        return this.gameField[pos.y * this.width + pos.x];
     },
 
-    setCellClass(x, y, cls) {
-        this.resetCell(x, y);
-        this.getCell(x, y).classList.add(cls);
+    setCellClass(pos, cls) {
+        let cell = this.getCell(pos);
+        if (!cell.classList.contains(cls)) {
+            cell.className = this.defaultCellClass;
+            cell.classList.add(cls);
+        }
     },
 
-    resetCell(x, y) {
-        this.getCell(x, y).className = this.defaultCellClass;
+    resetCell(pos) {
+        this.getCell(pos).className = this.defaultCellClass;
     },
 
-    isEmptyCell(x, y) {
-        return this.getCell(x, y).classList.length === 1;
+    isEmptyCell(pos) {
+        let cell = this.getCell(pos);
+        return cell.classList.length === 1 && cell.classList.contains(this.defaultCellClass);
     }
 }

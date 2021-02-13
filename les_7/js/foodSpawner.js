@@ -9,7 +9,7 @@ const foodSpawner = {
     isNotFilled() {
         return this.maxFood > this.foodList.length;
     },
-    
+
     isFoodCell(position) {
         for (const i of this.foodList) {
             if (position.x === i.x && position.y === i.y)
@@ -18,11 +18,16 @@ const foodSpawner = {
         return false;
     },
 
+    getFoodList() {
+        return this.foodList;
+    },
+
     spawnFood(position) {
         this.foodList.push({...position});
     },
 
     removeFood(position) {
-        this.foodList.splice(this.foodList.find(position), 1);
+        let ind = this.foodList.findIndex((i) => position.x === i.x && position.y === i.y);
+        this.foodList.splice(ind, 1);
     }
 }
