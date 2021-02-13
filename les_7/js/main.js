@@ -84,8 +84,13 @@ const game = {
         this.checkSnakePosition(nextSnakePos);
 
         if (this.snake.isSnakeBody(nextSnakePos)) {
+            let counter = 0;
             for (const i of this.snake.cut(nextSnakePos)) {
-                this.foodSpawner.spawnFood(i);
+                counter++;
+                if (counter % 2)
+                    this.foodSpawner.spawnFood(i);
+                else
+                    this.map.resetCell(i);
             }
         }
 
