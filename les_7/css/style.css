@@ -1,12 +1,35 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: #7690a8;
+}
+
 .game_field {
     margin: 64px auto;
     border-spacing: 0;
     border-collapse: collapse;
     user-select: none;
+    background-color: #53c685;
 }
 
-.game_field__cell {
+.cell {
     width: 25px;
     height: 25px;
-    border: 1px dotted black;
+    background-color: none;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.cell__snake_head {
+    background-color: red;
+}
+
+.cell__snake {
+    background-color: crimson;
+}
+
+.cell__food {
+    background-color: yellow;
 }
