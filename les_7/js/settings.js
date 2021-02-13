@@ -15,6 +15,10 @@ const DEFAULTS = {
     snakeHeadCellCls: 'cell__snake_head',
     snakeCellCls: 'cell__snake',
     foodCellCls: 'cell__food',
+    scoreLabelClass: 'info__score',
+    speedLabelClass: 'info__game_speed',
+    firstButtonId: 'firstButton',
+    secondButtonId: 'secondButton',
 }
 
 
@@ -79,5 +83,14 @@ const config = {
 
     getFoodLimit() {
         return this.settings.foodLimit;
+    },
+
+    getGameManagerElements() {
+        return {
+            scoreLabelClass: this.settings.scoreLabelClass,
+            speedLabelClass: this.settings.speedLabelClass,
+            firstButtonId: this.settings.firstButtonId,
+            secondButtonId: this.settings.secondButtonId
+        }
     }
 }

@@ -7,6 +7,10 @@ body {
     background-color: #7690a8;
 }
 
+.unvisible {
+    display: none;
+}
+
 .game_field {
     margin: 64px auto;
     border-spacing: 0;
@@ -32,4 +36,34 @@ body {
 
 .cell__food {
     background-color: firebrick;
+}
+
+.main {
+    display: flex;
+}
+
+.info {
+    width: 200px;
+    margin: 32px;
+    user-select: none;
+}
+
+.info__score, .info__game_speed {
+    font-size: 14px;
+    font-family: cursive;
+    font-weight: 400;
+}
+
+.info__button {
+    letter-spacing: 1px;
+    font-size: 16px;
+    font-family: cursive;
+    color: white;
+    background: #159d30;
+    border: 1px solid #235e2e;
+    border-radius: 2px;
+    width: 150px;
+    margin: 8px 0;
+    padding: 6px 0;
+
 }

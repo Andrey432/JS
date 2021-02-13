@@ -3,9 +3,11 @@ const game = {
     snake,
     map,
     foodSpawner,
+    gameManager,
 
     init(settings={}) {
         this.config.init(settings);
+        this.gameManager.init(this.config.getGameManagerElements());
         this.initMap();
         this.initSnake();
         this.initFoodSpawner();
@@ -51,11 +53,6 @@ const game = {
         else if (this.config.getSnakeControlButtonsRight().indexOf(event.code) != -1) {
             this.snake.setDirection(1, 0);
         }
-    },
-
-    reset() {
-        this.snake.reset();
-        this.map.reset();
     },
 
     getRandomEmptyCell() {
@@ -108,8 +105,45 @@ const game = {
         this.snake.moveTo(nextSnakePos, deleteEnd);
     },
 
+    updateGameManager() {
+        this.gameManager.update(this.snake.length(), 16);
+    },
+
+    reset() {
+        this.gameManager.pauseGame();
+        this.snake.reset();
+        this.map.reset();
+        this.foodSpawner.reset();
+        this.gameManager.resetGameInfo();
+        
+        this.initSnake();
+        this.initFoodSpawner();
+        this.render();
+    },
+
+    finishGame() {
+        this.reset();
+        this.gameManager.resetState();
+    },
+
+    handleGameStatus() {
+        switch (this.gameManager.getGameStatus()) {
+            case "run":
+                return true;
+            case "reset":
+                this.reset();
+                break;
+            case "finished":
+                this.finishGame();
+                break;
+        }
+        return false;
+    },
+
     update() {
+        if (!this.handleGameStatus()) return;
         this.updateSnake();
+        this.updateGameManager();
         this.render();
     },
 

@@ -6,6 +6,10 @@ const foodSpawner = {
         this.maxFood = foodLimit;
     },
 
+    reset() {
+        this.foodList.length = 0;
+    },
+
     isNotFilled() {
         return this.maxFood > this.foodList.length;
     },
