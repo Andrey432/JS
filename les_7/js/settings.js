@@ -9,6 +9,11 @@ const DEFAULTS = {
     moveRight: ['KeyD', 'ArrowRight'],
     moveDown: ['KeyS', 'ArrowDown'],
 
+    wallsLifeTime: [3000, 10000],
+    wallsSpawnDelay: [500, 3000],
+    stageTime: 5000,
+    maxGameSpeed: 50,
+
     tableContainerCls: 'game',
     tableCls: 'game_field',
     defaultCellCls: 'cell',
@@ -92,5 +97,21 @@ const config = {
             firstButtonId: this.settings.firstButtonId,
             secondButtonId: this.settings.secondButtonId
         }
+    },
+
+    getWallsLifeTime() {
+        return this.wallsLifeTime;
+    },
+
+    getWallsSpawnDelay() {
+        return this.wallsSpawnDelay;
+    },
+
+    getStageTime() {
+        return this.settings.stageTime;
+    },
+
+    getMaxGameSpeed() {
+        return this.settings.maxGameSpeed;
     }
 }

@@ -4,6 +4,13 @@ const game = {
     map,
     foodSpawner,
     gameManager,
+    wallsSpawner,
+
+    gameSpeed: null,
+    currentDelay: null,
+    time: null,
+    stage: null,
+    loop: null,
 
     init(settings={}) {
         this.config.init(settings);
@@ -12,7 +19,21 @@ const game = {
         this.initSnake();
         this.initFoodSpawner();
         this.initEventHandlers();
-        this.loop = setInterval(() => this.update(), 1000 / this.config.getStartingSpeed());
+        this.resetStats();
+    },
+
+    resetStats() {
+        this.time = 0;
+        this.stage = 1;
+        this.gameSpeed = this.config.getStartingSpeed();
+        this.currentDelay = 1000 / this.gameSpeed;
+        this.resetLoop();
+    },
+
+    resetLoop() {
+        if (this.loop !== null)
+            clearInterval(this.loop);
+        this.loop = setInterval(() => this.update(), this.currentDelay);
     },
 
     initMap() {
@@ -106,7 +127,7 @@ const game = {
     },
 
     updateGameManager() {
-        this.gameManager.update(this.snake.length(), 16);
+        this.gameManager.update(this.snake.length(), this.gameSpeed);
     },
 
     reset() {
@@ -119,6 +140,7 @@ const game = {
         this.initSnake();
         this.initFoodSpawner();
         this.render();
+        this.resetStats();
     },
 
     finishGame() {
@@ -140,8 +162,24 @@ const game = {
         return false;
     },
 
+    incrementTime() {
+        this.time += this.currentDelay;
+
+        let stageDelay = this.config.getStageTime();
+        if (this.time + stageDelay > this.stage * stageDelay)
+            this.nextStage();
+    },
+
+    nextStage() {
+        this.gameSpeed = Math.min(this.gameSpeed + 1, this.config.getMaxGameSpeed());
+        this.currentDelay = 1000 / this.gameSpeed;
+        this.stage++;
+        this.resetLoop();
+    },
+
     update() {
         if (!this.handleGameStatus()) return;
+        this.incrementTime();
         this.updateSnake();
         this.updateGameManager();
         this.render();

@@ -82,7 +82,6 @@ const gameManager = {
     },
 
     update(score, speed) {
-        console.log(score, speed);
         this.scoreLabel.innerText = `Счёт: ${score}`;
         this.gameSpeedLabel.innerText = `Скорость: ${speed}`;
     }
