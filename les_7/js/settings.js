@@ -1,7 +1,8 @@
 const DEFAULTS = {
     tableWidth: 35,
     tableHeight: 25,
-    startingGameSpeed: 1,
+    startingGameSpeed: 2,
+    foodLimit: 5,
 
     tableContainerCls: 'game',
     tableCls: 'game_field',
@@ -35,6 +36,10 @@ const config = {
         return this.settings.snakeHeadCellCls;
     },
 
+    getSnakeBodyClass() {
+        return this.settings.snakeCellCls;
+    },
+
     getTableWidth() {
         return this.settings.tableWidth;
     },
@@ -45,5 +50,13 @@ const config = {
 
     getStartingSpeed() {
         return this.settings.startingGameSpeed;
+    },
+
+    getFoodCellClass() {
+        return this.settings.foodCellCls;
+    },
+
+    getFoodLimit() {
+        return this.settings.foodLimit;
     }
 }

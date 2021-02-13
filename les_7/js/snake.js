@@ -15,11 +15,19 @@ const snake = {
         this.direction = null;
     },
 
+    length() {
+        return this.body.length;
+    },
+
     getNextStep() {
         let point = {...this.head};
         point.x += this.direction.x;
         point.y += this.direction.y;
         return point;
+    },
+
+    getHead() {
+        return {...this.head};
     },
 
     getLast() {
@@ -29,6 +37,7 @@ const snake = {
     moveTo(position) {
         position = {...position};
         this.head = position;
+        this.body.shift();
         this.body.push(position);
     },
 

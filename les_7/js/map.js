@@ -1,12 +1,14 @@
 const map = {
     gameField: [],
+    defaultCellClass: null,
     width: null,
     height: null,
 
-    init(container, cellCls, rows, columns) {
+    init(container, tableClass, cellClass, rows, columns) {
         this.width = rows;
         this.height = columns;
-        this.createTable(container, cellCls);
+        this.defaultCellClass = cellClass;
+        this.createTable(container, tableClass);
     },
 
     reset(cellCls) {
@@ -15,9 +17,9 @@ const map = {
         }
     },
 
-    createTable(tableContainer, cellCls) {
+    createTable(tableContainer, tableClass) {
         let table = document.createElement('table');
-        table.className = 'game_field';
+        table.className = tableClass;
         tableContainer.appendChild(table);
 
         for (let i = 0; i < this.height; ++i) {
@@ -25,7 +27,7 @@ const map = {
     
             for (let j = 0; j < this.width; ++j) {
                 let td = document.createElement('td');
-                td.className = cellCls;
+                td.className = this.defaultCellClass;
                 this.gameField.push(td);
                 tr.appendChild(td);
             }
@@ -34,17 +36,17 @@ const map = {
         }
     },
 
-    convertPosition(x, y) {
-        return y * this.width + x;
-    },
-
     getCell(x, y) {
-        return this.gameField[this.convertPosition(x, y)];
+        return this.gameField[y * this.width + x];
     },
 
-    toggleCellClass(x, y, cls) {
-        let cell = this.getCell(x, y);
-        cell.classList.toggle(cls);
+    setCellClass(x, y, cls) {
+        this.resetCell(x, y);
+        this.getCell(x, y).classList.add(cls);
+    },
+
+    resetCell(x, y) {
+        this.getCell(x, y).className = this.defaultCellClass;
     },
 
     isEmptyCell(x, y) {
