@@ -9,8 +9,8 @@ const DEFAULTS = {
     moveRight: ['KeyD', 'ArrowRight'],
     moveDown: ['KeyS', 'ArrowDown'],
 
-    wallsLifeTime: [3000, 10000],
-    wallsSpawnDelay: [500, 3000],
+    wallsLifeTime: [3000, 6000],
+    wallsSpawnDelay: [500, 2000],
     stageTime: 5000,
     maxGameSpeed: 50,
 
@@ -20,6 +20,7 @@ const DEFAULTS = {
     snakeHeadCellCls: 'cell__snake_head',
     snakeCellCls: 'cell__snake',
     foodCellCls: 'cell__food',
+    wallCellCls: 'cell__wall',
     scoreLabelClass: 'info__score',
     speedLabelClass: 'info__game_speed',
     timeLabelClass: 'info__time',
@@ -54,6 +55,10 @@ const config = {
 
     getSnakeBodyClass() {
         return this.settings.snakeCellCls;
+    },
+
+    getWallCellClass() {
+        return this.settings.wallCellCls;
     },
 
     getSnakeControlButtonsUp() {
@@ -103,12 +108,12 @@ const config = {
         }
     },
 
-    getWallsLifeTime() {
-        return this.wallsLifeTime;
+    getWallsSpawnDelay() {
+        return this.settings.wallsSpawnDelay;
     },
 
-    getWallsSpawnDelay() {
-        return this.wallsSpawnDelay;
+    getWallsLifeTime() {
+        return this.settings.wallsLifeTime;
     },
 
     getStageTime() {

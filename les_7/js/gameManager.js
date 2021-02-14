@@ -40,7 +40,7 @@ const gameManager = {
 
     pauseGame() {
         this.gameStatus = 'paused';
-        this.firstButton.innerText = 'Продолжить';
+        this.firstButton.innerText = 'Снять с паузы';
         this.secondButton.innerText = 'Завершить';
     },
 
@@ -74,7 +74,7 @@ const gameManager = {
             case "Заново":
                 this.resetGame();
                 break;
-            case "Продолжить":
+            case "Снять с паузы":
                 this.startGame();
                 break;
             case "Завершить":

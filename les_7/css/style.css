@@ -19,13 +19,13 @@ body {
     border-spacing: 0;
     border-collapse: collapse;
     user-select: none;
-    background-color: #c6a453;
 }
 
 .cell {
     width: 25px;
     height: 25px;
-    border: 1px solid rgba(0, 0, 0, 0.1);
+    background-color: #c6a453;
+    border: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 .cell__snake_head {
@@ -38,6 +38,10 @@ body {
 
 .cell__food {
     background-color: firebrick;
+}
+
+.cell__wall {
+    background-color: #735100;
 }
 
 .main {
@@ -63,10 +67,6 @@ body {
     font-size: 24px;
     font-weight: 400;
     margin: 32px 0;
-}
-
-.info__score, .info__game_speed {
-    
 }
 
 .info__button {
