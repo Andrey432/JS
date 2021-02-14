@@ -1,1 +1,1 @@
-game.init(DEFAULTS);
+game.init();

@@ -127,7 +127,7 @@ const game = {
     },
 
     updateGameManager() {
-        this.gameManager.update(this.snake.length(), this.gameSpeed);
+        this.gameManager.update(this.snake.length(), this.gameSpeed, this.time);
     },
 
     reset() {

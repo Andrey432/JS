@@ -6,7 +6,9 @@ const gameManager = {
     secondButton: null,
 
     init(elements) {
+        this.timeLabel = document.querySelector('.' + elements.timeLabelClass);
         this.scoreLabel = document.querySelector('.' + elements.scoreLabelClass);
+        this.maxScoreLable = document.querySelector('.' + elements.maxScoreLabelClass);
         this.gameSpeedLabel = document.querySelector('.' + elements.speedLabelClass);
         this.firstButton = document.getElementById(elements.firstButtonId);
         this.secondButton = document.getElementById(elements.secondButtonId);
@@ -81,8 +83,14 @@ const gameManager = {
         }
     },
 
-    update(score, speed) {
+    update(score, speed, time) {
+        this.timeLabel.innerText = `Время: ${Math.floor(time / 1000)}`;
         this.scoreLabel.innerText = `Счёт: ${score}`;
         this.gameSpeedLabel.innerText = `Скорость: ${speed}`;
+
+        let currentMax = Number(this.maxScoreLable.dataset.record);
+        currentMax = Math.max(currentMax, score);
+        this.maxScoreLable.dataset.record = currentMax;
+        this.maxScoreLable.innerText = `Рекорд: ${currentMax}`;
     }
 }

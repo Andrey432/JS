@@ -22,6 +22,8 @@ const DEFAULTS = {
     foodCellCls: 'cell__food',
     scoreLabelClass: 'info__score',
     speedLabelClass: 'info__game_speed',
+    timeLabelClass: 'info__time',
+    maxScoreLabelClass: 'info__maxscore',
     firstButtonId: 'firstButton',
     secondButtonId: 'secondButton',
 }
@@ -94,6 +96,8 @@ const config = {
         return {
             scoreLabelClass: this.settings.scoreLabelClass,
             speedLabelClass: this.settings.speedLabelClass,
+            maxScoreLabelClass: this.settings.maxScoreLabelClass,
+            timeLabelClass: this.settings.timeLabelClass,
             firstButtonId: this.settings.firstButtonId,
             secondButtonId: this.settings.secondButtonId
         }

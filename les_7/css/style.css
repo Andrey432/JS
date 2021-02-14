@@ -11,8 +11,11 @@ body {
     display: none;
 }
 
-.game_field {
+.game {
     margin: 64px auto;
+}
+
+.game_field {
     border-spacing: 0;
     border-collapse: collapse;
     user-select: none;
@@ -22,7 +25,6 @@ body {
 .cell {
     width: 25px;
     height: 25px;
-    background-color: none;
     border: 1px solid rgba(0, 0, 0, 0.1);
 }
 
@@ -45,25 +47,36 @@ body {
 .info {
     width: 200px;
     margin: 32px;
+    font-family: cursive;
     user-select: none;
 }
 
-.info__score, .info__game_speed {
-    font-size: 14px;
-    font-family: cursive;
+.info__header {
+    color: #024a0a;
+    margin: 32px 0;
+    text-align: center;
+    letter-spacing: 4px;
+    font-size: 64px;
+}
+
+.info__box {
+    font-size: 24px;
     font-weight: 400;
+    margin: 32px 0;
+}
+
+.info__score, .info__game_speed {
+    
 }
 
 .info__button {
     letter-spacing: 1px;
     font-size: 16px;
-    font-family: cursive;
     color: white;
     background: #159d30;
     border: 1px solid #235e2e;
     border-radius: 2px;
-    width: 150px;
+    width: 200px;
     margin: 8px 0;
     padding: 6px 0;
-
 }
