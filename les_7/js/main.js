@@ -171,6 +171,9 @@ const game = {
             case "reset":
                 this.reset();
                 break;
+            case "gameover":
+                this.finishGame();
+                break;
             case "finished":
                 this.finishGame();
                 break;
@@ -210,7 +213,7 @@ const game = {
             this.cutSnake(nextSnakePos);
         }
         else if (this.isWallCell(nextSnakePos)) {
-            this.gameOver();
+            this.gameManager.gameOver();
         }
 
         if (deleteEnd)
@@ -243,7 +246,6 @@ const game = {
         this.incrementTime();
         this.updateSnake();
         this.updateWallsSpawner();
-        if (!this.handleGameStatus()) return;
         this.updateGameManager();
         this.render();
     },
@@ -260,15 +262,5 @@ const game = {
         for (const i of this.foodSpawner.getFoodList()) {
             this.map.setCellClass(i, this.config.getFoodCellClass());
         }
-    },
-
-    // Игрок проиграл
-    gameOver() {
-        this.finishGame();
-    },
-
-    // Игрок выйграл
-    gameWin() {
-        this.finishGame();
     }
 }

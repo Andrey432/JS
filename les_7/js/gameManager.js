@@ -48,6 +48,10 @@ const gameManager = {
         this.gameStatus = 'finished';
     },
 
+    gameOver() {
+        this.gameStatus = 'gameover';
+    },
+
     resetGame() {
         this.gameStatus = 'reset';
     },
