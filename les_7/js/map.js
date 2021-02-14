@@ -10,13 +10,15 @@ const map = {
         this.defaultCellClass = cellClass;
         this.createTable(container, tableClass);
     },
-
+   
+    // Устанавливает всем ячейкам исходный класс
     reset() {
         for (const i of this.gameField) {
             i.className = this.defaultCellClass;
         }
     },
 
+    // Генерация таблицы на странице
     createTable(tableContainer, tableClass) {
         let table = document.createElement('table');
         table.className = tableClass;
@@ -36,10 +38,12 @@ const map = {
         }
     },
 
+    // Возвращает ячеку, соответствующую позиции, переводя координаты для 1-мерного массива
     getCell(pos) {
         return this.gameField[pos.y * this.width + pos.x];
     },
 
+    // Устанавливает ячейке определённый класс
     setCellClass(pos, cls) {
         let cell = this.getCell(pos);
         if (!cell.classList.contains(cls)) {
@@ -48,10 +52,12 @@ const map = {
         }
     },
 
+    // Устанавливает ячейке исходный класс
     resetCell(pos) {
         this.getCell(pos).className = this.defaultCellClass;
     },
 
+    // Проверка, что ячейка содержит только исходный класс
     isEmptyCell(pos) {
         let cell = this.getCell(pos);
         return cell.classList.length === 1 && cell.classList.contains(this.defaultCellClass);

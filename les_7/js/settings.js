@@ -1,19 +1,21 @@
 const DEFAULTS = {
+    // Настройки игры
     tableWidth: 35,
     tableHeight: 25,
     startingGameSpeed: 16,
     foodLimit: 5,
+    stageTime: 5000,
+    maxGameSpeed: 50,
+    wallsLifeTime: [3000, 6000],
+    wallsSpawnDelay: [500, 2000],
 
+    // Настройки управления
     moveUp: ['KeyW', 'ArrowUp'],
     moveLeft: ['KeyA', 'ArrowLeft'],
     moveRight: ['KeyD', 'ArrowRight'],
     moveDown: ['KeyS', 'ArrowDown'],
 
-    wallsLifeTime: [3000, 6000],
-    wallsSpawnDelay: [500, 2000],
-    stageTime: 5000,
-    maxGameSpeed: 50,
-
+    // Настройки для взаимодействия с страницей
     tableContainerCls: 'game',
     tableCls: 'game_field',
     defaultCellCls: 'cell',

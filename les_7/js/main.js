@@ -79,7 +79,7 @@ const game = {
         return pos;
     },
 
-    // Обработка выхода за пределы игрового поля
+    // Обработка выхода змейки за пределы игрового поля
     clampSnakePosition(position) {
         let tw = this.config.getTableWidth(), th = this.config.getTableHeight()
         
@@ -90,21 +90,6 @@ const game = {
 
         position.x %= tw;
         position.y %= th;
-    },
-
-    // Проверка клетки, куда двигается змея
-    isFoodCell(pos) {
-        return this.foodSpawner.isFoodCell(pos);
-    },
-
-    // Проверка, не пересекла ли змейка сама себя
-    isSnakeCell(pos) {
-        return this.snake.isSnakeBody(pos);
-    },
-
-    // Проверка, не столкнулась ли змейка со стеной
-    isWallCell(pos) {
-        return this.wallsSpawner.isWallCell(pos);
     },
 
     // Обрезать змейку, если она пересекла сама себя
@@ -133,10 +118,9 @@ const game = {
         this.foodSpawner.reset();
         this.wallsSpawner.reset();
         this.map.reset();
-        this.gameManager.resetGameInfo();
         
-        this.initSnake();
-        this.initFoodSpawner();
+        this.initSnake();  // Установить змейку в центр поля
+        this.initFoodSpawner();  // Перегенерировать еду
         this.render();
         this.resetStats();
     },
@@ -150,17 +134,11 @@ const game = {
         this.resetLoop();
     },
 
-    // Переустанавляивает интервал обновлений игры
+    // Вызывает setInterval и удаляет предыдущий, если он был
     resetLoop() {
         if (this.loop !== null)
             clearInterval(this.loop);
         this.loop = setInterval(() => this.update(), this.currentDelay);
-    },
-
-    // Закончить игру и перевести в начальное состояние
-    finishGame() {
-        this.reset();
-        this.gameManager.resetState();
     },
 
     // Проверка текущего статуса игры
@@ -190,12 +168,12 @@ const game = {
             this.nextStage();
     },
 
-    // Ускорение змейки
+    // Увеличение скорости змейки
     nextStage() {
         this.gameSpeed = Math.min(this.gameSpeed + 1, this.config.getMaxGameSpeed());
         this.currentDelay = 1000 / this.gameSpeed;
         this.stage++;
-        this.resetLoop();
+        this.resetLoop(); // Уменьшается delay и пересоздаётся вызов setInterval
     },
 
     // Переместить змейку
@@ -203,22 +181,22 @@ const game = {
         let nextSnakePos = this.snake.getNextStep();
         this.clampSnakePosition(nextSnakePos);
 
-        let deleteEnd = true;  // Если true, то змейка не будет удлиняться на текущем шаге
+        let deleteEnd = true;  // Если false, то змейка удлинится на текущем шаге
 
-        if (this.isFoodCell(nextSnakePos)) {
+        if (this.foodSpawner.isFoodCell(nextSnakePos)) {  // Проверка, не попала ли змейка на еду
             this.snakeEat(nextSnakePos);
             deleteEnd = false;
         }
-        else if (this.isSnakeCell(nextSnakePos)) {
+        else if (this.snake.isSnakeBody(nextSnakePos)) {  // Проверка, не пересекла ли змейка саму себя
             this.cutSnake(nextSnakePos);
         }
-        else if (this.isWallCell(nextSnakePos)) {
+        else if (this.wallsSpawner.isWallCell(nextSnakePos)) {  // Проверка, не столкнулась ли змейка со стеной
             this.gameManager.gameOver();
         }
 
         if (deleteEnd)
-            this.map.resetCell(this.snake.getLast());
-        this.snake.moveTo(nextSnakePos, deleteEnd);
+            this.map.resetCell(this.snake.getLast());  // Удление хвоста змейки, если она не выросла
+        this.snake.moveTo(nextSnakePos, deleteEnd);  // Обновление состояния змейки
     },
 
     // Обновить игровую статистику
@@ -262,5 +240,11 @@ const game = {
         for (const i of this.foodSpawner.getFoodList()) {
             this.map.setCellClass(i, this.config.getFoodCellClass());
         }
-    }
+    },
+
+    // Закончить игру и перевести всё в начальное состояние
+    finishGame() {
+        this.reset();
+        this.gameManager.resetState();
+    },
 }

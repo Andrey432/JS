@@ -2,6 +2,8 @@ const snake = {
     body: [],
     head: null,
     direction: null,
+    // Иногда может произойти несколько keydown за 1 итерацию и змейка повернёт несколько раз
+    // Флаг, чтобы избежать этого
     turnFlag: false,
 
     init(x, y) {
@@ -22,6 +24,7 @@ const snake = {
         return this.body.length;
     },
 
+    // Следующее положение головы, согласно направлению движения
     getNextStep() {
         let point = {...this.head};
         point.x += this.direction.x;
@@ -29,14 +32,17 @@ const snake = {
         return point;
     },
 
+    // Голова змеи
     getHead() {
         return {...this.head};
     },
 
+    // Последний элемент
     getLast() {
         return {...this.body[0]};
     },
 
+    // Смещение змейки
     moveTo(position, deleteEnd) {
         position = {...position};
         this.head = position;
@@ -46,6 +52,7 @@ const snake = {
         this.turnFlag = false;
     },
 
+    // Повернуть змейку
     setDirection(x, y) {
         if (this.turnFlag)
             return;
@@ -56,10 +63,12 @@ const snake = {
             this.direction.y = y;
     },
 
+    // Массив позиций тела змейки
     getBody() {
         return this.body;
     },
 
+    // Занята ли передаваемая позиция змейкой
     isSnakeBody(pos) {
         for (const i of this.body)
             if (i.x === pos.x && i.y === pos.y)
@@ -67,6 +76,7 @@ const snake = {
         return false;
     },
 
+    // Обрезать змейку до переданной позиции и вернуть обрезанную часть
     cut(pos) {
         let index = this.body.findIndex((i) => i.x === pos.x && i.y === pos.y);
         return this.body.splice(0, index + 1);

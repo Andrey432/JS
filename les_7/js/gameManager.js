@@ -16,6 +16,7 @@ const gameManager = {
         this.initEventHandlers();
     },
 
+    // Начальное состояние кнопок
     resetButtons() {
         this.firstButton.innerText = 'Начать игру';
         this.secondButton.classList.toggle('unvisible');
@@ -56,17 +57,20 @@ const gameManager = {
         this.gameStatus = 'reset';
     },
 
+    // Сброс статистики
     resetGameInfo() {
         this.scoreLabel.innerText = '';
         this.gameSpeedLabel.innerText = '';
     },
 
+    // Устанавливает начальное состояние игры
     resetState() {
         this.gameStatus = null;
         this.resetGameInfo();
         this.resetButtons();
     },
 
+    // Обработчик нажатий кнопки (1 на обе)
     handleButtonClick(button) {
         switch (button.innerText) {
             case "Начать игру":
@@ -87,6 +91,7 @@ const gameManager = {
         }
     },
 
+    // Обновление статистики
     update(score, speed, time) {
         this.timeLabel.innerText = `Время: ${Math.floor(time / 1000)}`;
         this.scoreLabel.innerText = `Счёт: ${score}`;
