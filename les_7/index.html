@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <title>SnakeGame</title>
+</head>
+<body>
+    <main class="main">
+        <div class="info">
+            <h1 class="info__header">Snake</h1>
+            <div class="info__box">
+                <p class="info__time"></p>
+                <p class="info__score"></p>
+                <p class="info__maxscore" data-record="0"></p>
+                <p class="info__game_speed"></p>
+            </div>
+            <button id="firstButton" class="info__button"></button>
+            <button id="secondButton" class="info__button"></button>
+        </div>
+        <div class="game"></div>
+    </main>
+    <script src="js/settings.js"></script>
+    <script src="js/map.js"></script>
+    <script src="js/snake.js"></script>
+    <script src="js/foodSpawner.js"></script>
+    <script src="js/gameManager.js"></script>
+    <script src="js/wallsSpawner.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/init.js"></script>
+</body>
+</html>
